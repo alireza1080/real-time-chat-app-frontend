@@ -8,17 +8,18 @@ import {
 import { UserRoundSearch } from "lucide-react";
 import CheckOnlineSwitch from "./CheckOnlineSwitch";
 import ContactsContainer from "./ContactsContainer";
-import { useState } from "react";
+import useAuthStore from "../store/authStore";
 
 const Contacts = ({ children }: { children: React.ReactNode }) => {
-  const [open, setOpen] = useState(false);
+  const isContactOpen = useAuthStore((state) => state.isContactOpen);
+  const setIsContactOpen = useAuthStore((state) => state.setIsContactOpen);
 
   const handleCloseSheet = () => {
-    setOpen(false);
+    setIsContactOpen(false);
   };
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
+    <Sheet open={isContactOpen} onOpenChange={setIsContactOpen}>
       <SheetTrigger asChild>{children}</SheetTrigger>
       <SheetContent>
         <SheetHeader>

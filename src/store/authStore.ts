@@ -23,6 +23,7 @@ type AuthStore = {
   isCheckingAuth: boolean;
   onlineUsers: string[];
   socket: Socket | null;
+  isContactOpen: boolean;
 
   checkAuth: () => Promise<void>;
   signUp: (
@@ -44,6 +45,7 @@ type AuthStore = {
   ) => Promise<void>;
   connectToSocket: () => void;
   disconnectFromSocket: () => void;
+  setIsContactOpen: (isContactOpen: boolean) => void;
 };
 
 type Response = {
@@ -61,6 +63,7 @@ const useAuthStore = create<AuthStore>()(
     isCheckingAuth: true,
     onlineUsers: [],
     socket: null,
+    isContactOpen: false,
 
     checkAuth: async () => {
       try {
@@ -219,6 +222,10 @@ const useAuthStore = create<AuthStore>()(
 
       socket.disconnect();
       set({ socket: null });
+    },
+
+    setIsContactOpen: (isContactOpen) => {
+      set({ isContactOpen });
     },
   })),
 );
